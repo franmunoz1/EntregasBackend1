@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "title": "Producto 1",
+        "description": "Descripción del Producto 1",
+        "code": "AA000AA",
+        "price": 25000,
+        "status": true,
+        "stock": 150,
+        "category": "Categoria 1"
+    },
+    {
+        "id": 2,
+        "title": "Producto 2",
+        "description": "Descripción del Producto 2",
+        "code": "AA000AB",
+        "price": 35000,
+        "status": true,
+        "stock": 200,
+        "category": "Categoria 2"
+    },
+    {
+        "id": 3,
+        "title": "Producto 3",
+        "description": "Descripción del Producto 3",
+        "code": "AA000AC",
+        "price": 45000,
+        "status": true,
+        "stock": 250,
+        "category": "Categoria 3"
+    },
+    {
+        "id": 4,
+        "title": "Producto 4",
+        "description": "Descripción del Producto 4",
+        "code": "AA000AD",
+        "price": 55000,
+        "status": true,
+        "stock": 300,
+        "category": "Categoria 4"
+    },
+    {
+        "id": 5,
+        "title": "Producto 5",
+        "description": "Descripción del Producto 5",
+        "code": "AA000AE",
+        "price": 65000,
+        "status": true,
+        "stock": 350,
+        "category": "Categoria 5"
+    }
+]

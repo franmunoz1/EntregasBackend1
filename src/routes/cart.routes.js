@@ -1,16 +1,41 @@
 import { Router } from 'express';
+import { CartManager } from '../manager/carts.manager.js';
 
 const router = Router();
 
 const cart = [];
+let id = 1;
 
-router.get('/', (req, res) => {
-    res.json(cart);
+const cartManager = new CartManager('./src/data/carts.json');
+
+router.get('/', async (req, res) => {
+
+    const carts = await cartManager.getCarts();
+
+    res.json(carts);
 });
 
-router.get('/:cid', (req, res) => {
-    const { id } = req.params;
-    const cartItem = cart.find((cart) => cart.id === id);
+// La ruta POST debera crear un nuevo carrito
+router.post('/', async (req, res) => {
+
+    const cart = {
+        id: id,
+        products: []
+    };
+
+    const newCart = await cartManager.createCart(cart);
+
+    id++;
+
+    res.status(201).json(newCart);
+});
+
+router.get('/:cid', async (req, res) => {
+    const { cid } = req.params;
+
+    const carts = await cartManager.getCarts();
+
+    const cartItem = carts.find((cart) => cart.id === +cid);
 
     if (!cartItem) {
         res.status(404).send('Cart not found');
@@ -18,42 +43,26 @@ router.get('/:cid', (req, res) => {
     }
 
     res.json(cartItem);
+
 });
 
-// La ruta POST  /:cid/product/:pid deberá agregar el producto al arreglo “products” del carrito seleccionado, agregándose como un objeto bajo el siguiente formato:
-//product: SÓLO DEBE CONTENER EL ID DEL PRODUCTO (Es crucial que no agregues el producto completo), quantity: debe contener el número de ejemplares de dicho producto. El producto, de momento, se agregará de uno en uno.
 
-router.post('/:cid/product/:pid', (req, res) => {
+router.post('/:cid/product/:pid', async (req, res) => {
     const { cid, pid } = req.params;
     const { quantity } = req.body;
 
-    const cartItem = cart.find((cart) => cart.id === cid);
+    const carts = await cartManager.getCarts();
+
+    const cartItem = carts.find((cart) => cart.id === +cid);
 
     if (!cartItem) {
         res.status(404).send('Cart not found');
         return;
     }
 
-    const product = {
-        id: pid,
-        quantity
-    };
+    //agregar validacion para si no existe el producto
 
-    cartItem.products.push(product);
-
-    res.json(product);
-});
-
-// La ruta POST debera crear un nuevo carrito
-router.post('/', (req, res) => {
-    const { id } = req.body;
-
-    const newCart = {
-        id,
-        products: []
-    };
-
-    cart.push(newCart);
+    const newCart = await cartManager.addToCart(+cid, +pid, quantity);
 
     res.json(newCart);
 });

@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "products": [
+            {
+                "id": 4,
+                "title": "Producto 4",
+                "description": "Descripción del Producto 4",
+                "code": "AA000AD",
+                "price": 55000,
+                "status": true,
+                "stock": 300,
+                "category": "Categoria 4"
+            }
+        ]
+    }
+]

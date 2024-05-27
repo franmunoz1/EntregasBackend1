@@ -1,36 +1,59 @@
 import { Router } from 'express';
+import { ProductManager } from '../manager/products.manager.js';
 
 const router = Router();
 
-const products = [];
 let id = 1;
-let status = true;
+
+const productManager = new ProductManager('./src/data/products.json');
 
 //realizar un get para obtener todos los productos con ?limit
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const { limit } = req.query;
+
+    const productss = await productManager.getProducts();
+
     if (limit) {
-        res.json(products.slice(0, limit));
+        res.json(productss.slice(0, limit));
         return;
     }
-    res.json(products);
+
+
+    res.json(productss);
 });
 
-router.get('/:id', (req, res) => {
-    const { id } = req.params;
-    const product = products[id];
+router.get('/:pid', async (req, res) => {
+    const { pid } = req.params;
 
-    if (!product) {
+    const productss = await productManager.getProducts();
+
+    const productFinded = productss.find((product) => product.id === +pid);
+
+    if (!productFinded) {
         res.status(404).send('Product not found');
         return;
     }
 
-    res.json(product);
+    res.json(productFinded);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const { title, description, code, price, status, stock, category } = req.body;
+
+    if (!id || !title || !description || !code || !price || !status || !stock || !category) {
+        return res.status(400).json({
+            message: "Revisar campos obligatorios",
+        });
+    }
+
+    const productss = await productManager.getProducts();
+
+    if (productss.find((prod) => prod.id === id)) {
+        return res.status(400).json({
+            message: "El producto ya existe",
+        });
+    }
 
     const product = {
         id: id,
@@ -43,21 +66,9 @@ router.post('/', (req, res) => {
         category
     };
 
+    const products = await productManager.addProduct(product);
+
     id++;
-
-    products.push(product);
-
-    if (!id || !title || !description || !code || !price || !status || !stock || !category) {
-        return res.status(400).json({
-            message: "Username and full name are required",
-        });
-    }
-
-    if (products.find((prod) => prod.id === id)) {
-        return res.status(400).json({
-            message: "id already exists",
-        });
-    }
 
     res.status(201).json({
         message: "Product created successfully",
@@ -66,11 +77,13 @@ router.post('/', (req, res) => {
 });
 
 // Realizar el put del producto
-router.put('/:id', (req, res) => {
-    const { id } = req.params;
+router.put('/:pid', async (req, res) => {
+    const { pid } = req.params;
     const { title, description, code, price, status, stock, category } = req.body;
 
-    const product = products.find((product) => product.id === +id);
+    const productss = await productManager.getProducts();
+
+    const product = products.find((product) => product.id === +pid);
 
     if (!product) {
         res.status(404).send('Product not found');
@@ -85,21 +98,30 @@ router.put('/:id', (req, res) => {
     product.stock = stock;
     product.category = category;
 
+    const products = await productManager.updateProduct(product, +pid);
+
     res.json(product);
 });
 
 // Realizar el delete del producto con un id pasado por parametro
-router.delete('/:id', (req, res) => {
-    const { id } = req.params;
+router.delete('/:pid', async (req, res) => {
+    const { pid } = req.params;
+    let productExist = false;
 
-    const productIndex = products.findIndex((product) => product.id === +id);
+    const products = await productManager.getProducts();
 
-    if (productIndex === -1) {
+    products.find((product) => {
+        if (product.id === +pid) {
+            productExist = true;
+        }
+    });
+
+    if (!productExist) {
         res.status(404).send('Product not found');
         return;
     }
 
-    products.splice(productIndex, 1);
+    const productsWithoutDeleted = await productManager.deleteProduct(+pid);
 
     res.send('Product deleted successfully');
 });
