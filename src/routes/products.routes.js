@@ -11,23 +11,23 @@ const productManager = new ProductManager('./src/data/products.json');
 router.get('/', async (req, res) => {
     const { limit } = req.query;
 
-    const productss = await productManager.getProducts();
+    const gettedProducts = await productManager.getProducts();
 
     if (limit) {
-        res.json(productss.slice(0, limit));
+        res.json(gettedProducts.slice(0, limit));
         return;
     }
 
 
-    res.json(productss);
+    res.json(gettedProducts);
 });
 
 router.get('/:pid', async (req, res) => {
     const { pid } = req.params;
 
-    const productss = await productManager.getProducts();
+    const gettedProducts = await productManager.getProducts();
 
-    const productFinded = productss.find((product) => product.id === pid);
+    const productFinded = gettedProducts.find((product) => product.id === pid);
 
     if (!productFinded) {
         res.status(404).send('Producto no encontrado');
@@ -49,9 +49,9 @@ router.post('/', async (req, res) => {
         });
     }
 
-    const productss = await productManager.getProducts();
+    const gettedProducts = await productManager.getProducts();
 
-    if (productss.find((prod) => prod.id === id)) {
+    if (gettedProducts.find((prod) => prod.id === id)) {
         return res.status(400).json({
             message: "El producto ya existe",
         });
@@ -81,9 +81,9 @@ router.put('/:pid', async (req, res) => {
     const { pid } = req.params;
     const { title, description, code, price, status, stock, category } = req.body;
 
-    const productss = await productManager.getProducts();
+    const gettedProducts = await productManager.getProducts();
 
-    const product = products.find((product) => product.id === pid);
+    const product = gettedProducts.find((product) => product.id === pid);
 
     if (!product) {
         res.status(404).send('Producto no encontrado');

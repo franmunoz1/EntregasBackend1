@@ -1,52 +1,62 @@
 [
-    {
-        "id": "hola",
-        "title": "Producto 1",
-        "description": "Descripción del Producto 1",
-        "code": "AA000AA",
-        "price": 25000,
-        "status": true,
-        "stock": 150,
-        "category": "Categoria 1"
-    },
-    {
-        "id": "como",
-        "title": "Producto 2",
-        "description": "Descripción del Producto 2",
-        "code": "AA000AB",
-        "price": 35000,
-        "status": true,
-        "stock": 200,
-        "category": "Categoria 2"
-    },
-    {
-        "id": "estas",
-        "title": "Producto 3",
-        "description": "Descripción del Producto 3",
-        "code": "AA000AC",
-        "price": 45000,
-        "status": true,
-        "stock": 250,
-        "category": "Categoria 3"
-    },
-    {
-        "id": "chau",
-        "title": "Producto 4",
-        "description": "Descripción del Producto 4",
-        "code": "AA000AD",
-        "price": 55000,
-        "status": true,
-        "stock": 300,
-        "category": "Categoria 4"
-    },
-    {
-        "id": "ciao",
-        "title": "Producto 5",
-        "description": "Descripción del Producto 5",
-        "code": "AA000AE",
-        "price": 65000,
-        "status": true,
-        "stock": 350,
-        "category": "Categoria 5"
-    }
+	{
+		"id": "2acd0e57-14f1-4e8e-a496-d3884d261d85",
+		"title": "Producto 1",
+		"description": "Descripción del Producto 1",
+		"code": "AA000AA",
+		"price": 25000,
+		"status": true,
+		"stock": 150,
+		"category": "Categoria 1"
+	},
+	{
+		"id": "1c4d9452-691f-4518-b231-946343bba52c",
+		"title": "Producto 2",
+		"description": "Descripción del Producto 2",
+		"code": "AA000AB",
+		"price": 35000,
+		"status": true,
+		"stock": 200,
+		"category": "Categoria 2"
+	},
+	{
+		"id": "a6589d79-424b-4af3-98c0-56cfcb800076",
+		"title": "Producto 3",
+		"description": "Descripción del Producto 3",
+		"code": "AA000AC",
+		"price": 45000,
+		"status": true,
+		"stock": 250,
+		"category": "Categoria 3"
+	},
+	{
+		"id": "d214463b-9a0f-4459-9c06-efde9debd58f",
+		"title": "Producto 4",
+		"description": "Descripción del Producto 4",
+		"code": "AA000AD",
+		"price": 55000,
+		"status": true,
+		"stock": 300,
+		"category": "Categoria 4"
+	},
+	{
+		"id": "78019107-5b07-4129-b70f-ef5dbf0cb821",
+		"title": "Producto 5",
+		"description": "Descripción del Producto 5",
+		"code": "AA000AE",
+		"price": 65000,
+		"status": true,
+		"stock": 350,
+		"category": "Categoria 5"
+	},
+	{
+		"id": "10d73cc4-d40f-4d12-9eb1-9f1a3f53ac70",
+		"title": "Producto 7",
+		"description": "Descripción del Producto6",
+		"code": "AA000AF",
+		"price": 75000,
+		"status": true,
+		"stock": 200,
+		"category": "Categoria 7"
+	}
 ]
