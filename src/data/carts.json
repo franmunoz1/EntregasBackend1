@@ -1,17 +1,15 @@
 [
-    {
-        "id": 1,
-        "products": [
-            {
-                "id": 4,
-                "title": "Producto 4",
-                "description": "Descripción del Producto 4",
-                "code": "AA000AD",
-                "price": 55000,
-                "status": true,
-                "stock": 300,
-                "category": "Categoria 4"
-            }
-        ]
-    }
+	{
+		"id": "c9d2ae0a-0347-406a-897e-d9f1d19ea1f0",
+		"products": [
+			{
+				"product": "ciao",
+				"quantity": 11
+			}
+		]
+	},
+	{
+		"id": "a8d0ad2b-631d-4e83-bd3e-773c0adca9da",
+		"products": []
+	}
 ]

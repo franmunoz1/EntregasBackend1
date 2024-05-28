@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import { ProductManager } from '../manager/products.manager.js';
+import { v4 as uuidv4 } from 'uuid';
 
 const router = Router();
-
-let id = 1;
 
 const productManager = new ProductManager('./src/data/products.json');
 
@@ -28,10 +27,10 @@ router.get('/:pid', async (req, res) => {
 
     const productss = await productManager.getProducts();
 
-    const productFinded = productss.find((product) => product.id === +pid);
+    const productFinded = productss.find((product) => product.id === pid);
 
     if (!productFinded) {
-        res.status(404).send('Product not found');
+        res.status(404).send('Producto no encontrado');
         return;
     }
 
@@ -39,6 +38,9 @@ router.get('/:pid', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+
+    const id = uuidv4();
+
     const { title, description, code, price, status, stock, category } = req.body;
 
     if (!id || !title || !description || !code || !price || !status || !stock || !category) {
@@ -56,7 +58,7 @@ router.post('/', async (req, res) => {
     }
 
     const product = {
-        id: id,
+        id,
         title,
         description,
         code,
@@ -68,10 +70,8 @@ router.post('/', async (req, res) => {
 
     const products = await productManager.addProduct(product);
 
-    id++;
-
     res.status(201).json({
-        message: "Product created successfully",
+        message: "Producto creado con exito",
     });
 
 });
@@ -83,10 +83,10 @@ router.put('/:pid', async (req, res) => {
 
     const productss = await productManager.getProducts();
 
-    const product = products.find((product) => product.id === +pid);
+    const product = products.find((product) => product.id === pid);
 
     if (!product) {
-        res.status(404).send('Product not found');
+        res.status(404).send('Producto no encontrado');
         return;
     }
 
@@ -98,7 +98,7 @@ router.put('/:pid', async (req, res) => {
     product.stock = stock;
     product.category = category;
 
-    const products = await productManager.updateProduct(product, +pid);
+    const products = await productManager.updateProduct(product, pid);
 
     res.json(product);
 });
@@ -111,19 +111,19 @@ router.delete('/:pid', async (req, res) => {
     const products = await productManager.getProducts();
 
     products.find((product) => {
-        if (product.id === +pid) {
+        if (product.id === pid) {
             productExist = true;
         }
     });
 
     if (!productExist) {
-        res.status(404).send('Product not found');
+        res.status(404).send('Producto no encontrado');
         return;
     }
 
-    const productsWithoutDeleted = await productManager.deleteProduct(+pid);
+    const productsWithoutDeleted = await productManager.deleteProduct(pid);
 
-    res.send('Product deleted successfully');
+    res.send('Producto eliminado con exito');
 });
 
 

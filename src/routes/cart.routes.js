@@ -1,10 +1,8 @@
 import { Router } from 'express';
 import { CartManager } from '../manager/carts.manager.js';
+import { v4 as uuidv4 } from 'uuid';
 
 const router = Router();
-
-const cart = [];
-let id = 1;
 
 const cartManager = new CartManager('./src/data/carts.json');
 
@@ -18,14 +16,14 @@ router.get('/', async (req, res) => {
 // La ruta POST debera crear un nuevo carrito
 router.post('/', async (req, res) => {
 
+    const id = uuidv4();
+
     const cart = {
-        id: id,
+        id,
         products: []
     };
 
     const newCart = await cartManager.createCart(cart);
-
-    id++;
 
     res.status(201).json(newCart);
 });
@@ -35,10 +33,10 @@ router.get('/:cid', async (req, res) => {
 
     const carts = await cartManager.getCarts();
 
-    const cartItem = carts.find((cart) => cart.id === +cid);
+    const cartItem = carts.find((cart) => cart.id === cid);
 
     if (!cartItem) {
-        res.status(404).send('Cart not found');
+        res.status(404).send('Carrito no encontrado');
         return;
     }
 
@@ -53,16 +51,16 @@ router.post('/:cid/product/:pid', async (req, res) => {
 
     const carts = await cartManager.getCarts();
 
-    const cartItem = carts.find((cart) => cart.id === +cid);
+    const cartItem = carts.find((cart) => cart.id === cid);
 
     if (!cartItem) {
-        res.status(404).send('Cart not found');
+        res.status(404).send('Carrito no encontrado');
         return;
     }
 
     //agregar validacion para si no existe el producto
 
-    const newCart = await cartManager.addToCart(+cid, +pid, quantity);
+    const newCart = await cartManager.addToCart(cid, pid, quantity);
 
     res.json(newCart);
 });

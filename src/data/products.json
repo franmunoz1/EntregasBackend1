@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": "hola",
         "title": "Producto 1",
         "description": "Descripción del Producto 1",
         "code": "AA000AA",
@@ -10,7 +10,7 @@
         "category": "Categoria 1"
     },
     {
-        "id": 2,
+        "id": "como",
         "title": "Producto 2",
         "description": "Descripción del Producto 2",
         "code": "AA000AB",
@@ -20,7 +20,7 @@
         "category": "Categoria 2"
     },
     {
-        "id": 3,
+        "id": "estas",
         "title": "Producto 3",
         "description": "Descripción del Producto 3",
         "code": "AA000AC",
@@ -30,7 +30,7 @@
         "category": "Categoria 3"
     },
     {
-        "id": 4,
+        "id": "chau",
         "title": "Producto 4",
         "description": "Descripción del Producto 4",
         "code": "AA000AD",
@@ -40,7 +40,7 @@
         "category": "Categoria 4"
     },
     {
-        "id": 5,
+        "id": "ciao",
         "title": "Producto 5",
         "description": "Descripción del Producto 5",
         "code": "AA000AE",
