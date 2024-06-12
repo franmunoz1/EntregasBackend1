@@ -1,33 +1,37 @@
 import express from 'express';
-import { createServer } from 'http';
-import { Server } from 'socket.io';
-import { engine } from 'express-handlebars';
+import { create } from 'express-handlebars';
+import { Server as SocketIOServer } from 'socket.io';
+import http from 'http';
 import productsRouter from './routes/products.routes.js';
 import cartRouter from './routes/cart.routes.js';
-import viewsRouter from './routes/views.routes.js'; // Nuevo router para las vistas
+import viewsRouter from './routes/views.routes.js';
 
 const app = express();
-const server = createServer(app); // Crear servidor HTTP
-const io = new Server(server); // Crear instancia de Socket.io
+const server = http.createServer(app);
+const io = new SocketIOServer(server);
 
 const PORT = 8080;
 
-app.engine('handlebars', engine());
-app.set('view engine', 'handlebars');
-app.set('views', './src/views'); // Establecer directorio de vistas
+// Configurar Handlebars
+const hbs = create({ extname: '.handlebars', defaultLayout: false });
+app.engine('.handlebars', hbs.engine);
+app.set('view engine', '.handlebars');
+app.set('views', './src/views');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Rutas
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartRouter);
-app.use('/', viewsRouter); // Usar router de vistas
+app.use('/', viewsRouter);
 
+// Configurar WebSocket
 io.on('connection', (socket) => {
-    console.log('New client connected');
+    console.log('Nuevo cliente conectado');
 
     socket.on('disconnect', () => {
-        console.log('Client disconnected');
+        console.log('Cliente desconectado');
     });
 });
 
@@ -35,4 +39,8 @@ server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-export { io };
+// Middleware para compartir la instancia de io
+app.use((req, res, next) => {
+    req.io = io;
+    next();
+});
