@@ -36,7 +36,6 @@ router.post('/', async (req, res) => {
         res.status(400).json({ message: "Revisar campos obligatorios" });
         return;
     }
-    const products = await productManager.getProducts();
     const product = { id, title, description, code, price, status, stock, category };
     await productManager.addProduct(product);
     req.io.emit('productListUpdated', await productManager.getProducts());
