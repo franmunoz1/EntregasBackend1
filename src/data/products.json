@@ -38,15 +38,5 @@
 		"status": true,
 		"stock": 300,
 		"category": "Categoria 4"
-	},
-	{
-		"id": "78019107-5b07-4129-b70f-ef5dbf0cb821",
-		"title": "Producto 5",
-		"description": "Descripción del Producto 5",
-		"code": "AA000AE",
-		"price": 65000,
-		"status": true,
-		"stock": 350,
-		"category": "Categoria 5"
 	}
 ]

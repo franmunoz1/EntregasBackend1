@@ -23,7 +23,7 @@
                             <p>${product.price}</p>
                             <p>${product.stock}</p>
                             <p>${product.category}</p>
-                            <button onclick="deleteProduct('${product.code}')">Eliminar</button>
+                            <button onclick="deleteProduct('${product.id}')">Eliminar</button>
                         </article>
                     `;
                     productsList.appendChild(li);
@@ -49,7 +49,7 @@
                 description,
                 code,
                 price: parseFloat(price),
-                status: true,  // Status is always true
+                status: true,
                 stock: parseInt(stock),
                 category
             };
@@ -57,8 +57,8 @@
             socket.emit('addProduct', product);
         };
 
-        const deleteProduct = (code) => {
-            socket.emit('deleteProduct', code);
+        const deleteProduct = (id) => {
+            socket.emit('deleteProduct', id);
         };
     </script>
 </head>
